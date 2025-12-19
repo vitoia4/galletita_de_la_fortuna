@@ -25,7 +25,7 @@ fetch("./quotes.json")
 /* =====================
    CARGAR BACKGROUNDS Y ELEGIR UNO
    ===================== */
-fetch("./assets/backgrounds.json")
+fetch(`./assets/backgrounds.json?t=${new Date().getTime()}`)
   .then(res => res.json())
   .then(data => {
     backgrounds = data;
@@ -52,7 +52,7 @@ function chooseBackground() {
 
 function applyBackground() {
   if (selectedBackground) {
-    document.body.style.backgroundImage = `url("${selectedBackground}")`;
+    document.body.style.backgroundImage = `url("./assets/${folder}/${selectedImg}?t=${new Date().getTime()}")`;
   }
 }
 
