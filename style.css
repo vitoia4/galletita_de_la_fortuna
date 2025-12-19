@@ -1,0 +1,183 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base */
+:root {
+  font-size: 62.5%;
+}
+
+/* Fondo */
+body {
+  min-height: 100vh;
+  background-image: url("./assets/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: -1;
+}
+
+/* Utilidad */
+.hide {
+  display: none !important;
+}
+
+/* Card */
+main {
+  background: #fff;
+  box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.35);
+  border-radius: 1rem;
+  padding: 4rem 5rem;
+  width: min(42rem, 90%);
+  text-align: center;
+}
+
+/* Títulos */
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+  margin-bottom: 0.8rem;
+  color: #34355b;
+}
+
+.subtitle {
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #34355b;
+}
+
+/* ===== ÁREA COOKIE ===== */
+#cookie-area {
+  position: relative;
+  height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: height 0.6s ease;
+}
+
+#cookie-area.open {
+  height: auto;
+  min-height: 340px;
+  overflow: visible;
+}
+
+/* Cookie cerrada */
+#cookie-closed img {
+  width: 18rem;
+  cursor: pointer;
+}
+
+#cookie-closed:hover {
+  animation: shake 0.3s ease-in-out infinite;
+}
+
+/* Cookie abierta */
+#cookie-opened {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== PAPEL FORTUNA (SIN SCROLL) ===== */
+.fortune-paper {
+  margin-top: 2rem;
+  background: #fbf6f2;
+  padding: 1.6rem 2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+  animation: paperUp 0.6s ease forwards;
+}
+
+/* Texto fortuna (fluido) */
+#fortune-text {
+  font-family: "Anonymous Pro", monospace;
+  font-size: 1.8rem; /* base */
+  line-height: 1.4;
+  margin-bottom: 1.6rem;
+  letter-spacing: 0.02em;
+  color: #222;
+
+  transition: font-size 0.3s ease, line-height 0.3s ease;
+}
+
+/* Números */
+#lucky-numbers {
+  font-family: "Anonymous Pro", monospace;
+  font-size: 1.3rem;
+  color: #555;
+  letter-spacing: 0.3em;
+  text-align: center;
+}
+
+/* Botón */
+button {
+  margin-top: 3rem;
+  background: #eb5f43;
+  border-radius: 6px;
+  border: none;
+  padding: 1.4rem 2.4rem;
+
+  font-family: "DM Sans", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff;
+
+  cursor: pointer;
+}
+
+/* ===== ANIMACIONES ===== */
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Cookie cerrada */
+.cookie-opening {
+  animation: cookieOpen 0.8s ease forwards;
+}
+
+@keyframes cookieOpen {
+  0% { transform: scale(1); opacity: 1; }
+  40% { transform: scale(1.05) rotate(5deg); }
+  70% { transform: scale(0.9) rotate(-5deg); }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* Cookie abierta */
+.cookie-reveal {
+  animation: reveal 0.6s ease forwards;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Papel */
+@keyframes paperUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

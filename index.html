@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Galletita de la Fortuna</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Dancing+Script&family=Montserrat:wght@700&display=swap"
+    rel="stylesheet"
+  <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- JS -->
+  <script src="main.js" defer></script>
+</head>
+
+<body>
+  <main>
+    <div class="container">
+
+      <h1 id="title-initial">¿Qué dice tu suerte?</h1>
+      <h1 id="title-result" class="hide">Tu suerte dice…</h1>
+      <p class="subtitle">Hacé click en la galletita</p>
+
+
+      <!-- COOKIE AREA -->
+      <div id="cookie-area">
+
+        <!-- COOKIE CLOSED -->
+        <div id="cookie-closed" class="cookie">
+          <img src="./assets/cookie1.svg" alt="Galletita cerrada">
+        </div>
+
+        <!-- COOKIE OPENED -->
+        <div id="cookie-opened" class="hide">
+          <div class="cookie-pieces">
+            <img src="./assets/cookie2.svg" alt="Galletita abierta">
+          </div>
+
+          <!-- FORTUNE PAPER -->
+          <div class="fortune-paper">
+            <p id="fortune-text"></p>
+            <p id="lucky-numbers"></p>
+          </div>
+        </div>
+
+      </div>
+
+      <button id="reset-btn" class="hide">
+        Abrir otra
+      </button>
+
+    </div>
+  </main>
+</body>
+</html>
