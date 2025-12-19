@@ -36,15 +36,20 @@ fetch("./assets/backgrounds.json")
    DETECTAR DISPOSITIVO Y ELEGIR FONDO
    ===================== */
 function setRandomBackground() {
-  const isMobile = window.innerWidth <= 768; // Ajustable según lo que consideres celular
+  // Detecta móvil usando media query
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
   const folder = isMobile ? "celular" : "pc";
 
   const imgs = backgrounds[folder];
-  if (!imgs || imgs.length === 0) return;
+  if (!imgs || imgs.length === 0) {
+    console.warn(`No hay imágenes para ${folder}`);
+    return;
+  }
 
-  const randomIndex = Math.floor(Math.random() * imgs.length);
-  const selectedImg = imgs[randomIndex];
+  // Elegir al azar
+  const selectedImg = imgs[Math.floor(Math.random() * imgs.length)];
 
+  // Ruta relativa al HTML
   document.body.style.backgroundImage = `url("./assets/${folder}/${selectedImg}")`;
 }
 
