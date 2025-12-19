@@ -10,7 +10,7 @@ const cookieArea = document.querySelector("#cookie-area");
 
 let fortunes = [];
 let backgrounds = { pc: [], celular: [] };
-let selectedBackground = ""; // <-- fondo fijo
+let selectedBackground = ""; // fondo fijo
 
 /* =====================
    CARGAR FRASES DEL JSON
@@ -25,11 +25,11 @@ fetch("./quotes.json")
 /* =====================
    CARGAR BACKGROUNDS Y ELEGIR UNO
    ===================== */
-fetch(`./assets/backgrounds.json?t=${new Date().getTime()}`)
+fetch("./assets/backgrounds.json")
   .then(res => res.json())
   .then(data => {
     backgrounds = data;
-    chooseBackground(); // Elegir fondo solo al cargar
+    chooseBackground();
     applyBackground();
   })
   .catch(err => console.error("Error cargando backgrounds:", err));
@@ -47,12 +47,14 @@ function chooseBackground() {
     return;
   }
 
-  selectedBackground = `./assets/${folder}/${imgs[Math.floor(Math.random() * imgs.length)]}`;
+  // Elegir al azar
+  const randomIndex = Math.floor(Math.random() * imgs.length);
+  selectedBackground = `./assets/${folder}/${imgs[randomIndex]}`;
 }
 
 function applyBackground() {
   if (selectedBackground) {
-    document.body.style.backgroundImage = `url("./assets/${folder}/${selectedImg}?t=${new Date().getTime()}")`;
+    document.body.style.backgroundImage = `url("${selectedBackground}")`;
   }
 }
 
@@ -136,7 +138,7 @@ function resetCookie() {
   cookieClosed.classList.remove("hide");
   resetButton.classList.add("hide");
 
-  // No cambiamos el fondo
+  // NO cambiamos el fondo
 }
 
 /* =====================
