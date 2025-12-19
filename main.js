@@ -10,6 +10,7 @@ const cookieArea = document.querySelector("#cookie-area");
 
 let fortunes = [];
 let backgrounds = { pc: [], celular: [] };
+let selectedBackground = ""; // <-- fondo fijo
 
 /* =====================
    CARGAR FRASES DEL JSON
@@ -22,21 +23,21 @@ fetch("./quotes.json")
   .catch(err => console.error("Error cargando frases:", err));
 
 /* =====================
-   CARGAR BACKGROUNDS
+   CARGAR BACKGROUNDS Y ELEGIR UNO
    ===================== */
 fetch("./assets/backgrounds.json")
   .then(res => res.json())
   .then(data => {
     backgrounds = data;
-    setRandomBackground();
+    chooseBackground(); // Elegir fondo solo al cargar
+    applyBackground();
   })
   .catch(err => console.error("Error cargando backgrounds:", err));
 
 /* =====================
-   DETECTAR DISPOSITIVO Y ELEGIR FONDO
+   FUNCIONES DE FONDO
    ===================== */
-function setRandomBackground() {
-  // Detecta móvil usando media query
+function chooseBackground() {
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
   const folder = isMobile ? "celular" : "pc";
 
@@ -46,11 +47,13 @@ function setRandomBackground() {
     return;
   }
 
-  // Elegir al azar
-  const selectedImg = imgs[Math.floor(Math.random() * imgs.length)];
+  selectedBackground = `./assets/${folder}/${imgs[Math.floor(Math.random() * imgs.length)]}`;
+}
 
-  // Ruta relativa al HTML
-  document.body.style.backgroundImage = `url("./assets/${folder}/${selectedImg}")`;
+function applyBackground() {
+  if (selectedBackground) {
+    document.body.style.backgroundImage = `url("${selectedBackground}")`;
+  }
 }
 
 /* =====================
@@ -133,8 +136,7 @@ function resetCookie() {
   cookieClosed.classList.remove("hide");
   resetButton.classList.add("hide");
 
-  // Cambiar fondo de nuevo al azar al resetear
-  setRandomBackground();
+  // No cambiamos el fondo
 }
 
 /* =====================
@@ -142,6 +144,3 @@ function resetCookie() {
    ===================== */
 cookieClosed.addEventListener("click", openCookie);
 resetButton.addEventListener("click", resetCookie);
-
-// Opcional: cambiar fondo si se redimensiona la ventana
-window.addEventListener("resize", setRandomBackground);
