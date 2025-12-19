@@ -9,6 +9,7 @@ const subtitle = document.querySelector(".subtitle");
 const cookieArea = document.querySelector("#cookie-area");
 
 let fortunes = [];
+let backgrounds = { pc: [], celular: [] };
 
 /* =====================
    CARGAR FRASES DEL JSON
@@ -18,9 +19,34 @@ fetch("./quotes.json")
   .then(data => {
     fortunes = data;
   })
-  .catch(err => {
-    console.error("Error cargando frases:", err);
-  });
+  .catch(err => console.error("Error cargando frases:", err));
+
+/* =====================
+   CARGAR BACKGROUNDS
+   ===================== */
+fetch("./assets/backgrounds.json")
+  .then(res => res.json())
+  .then(data => {
+    backgrounds = data;
+    setRandomBackground();
+  })
+  .catch(err => console.error("Error cargando backgrounds:", err));
+
+/* =====================
+   DETECTAR DISPOSITIVO Y ELEGIR FONDO
+   ===================== */
+function setRandomBackground() {
+  const isMobile = window.innerWidth <= 768; // Ajustable según lo que consideres celular
+  const folder = isMobile ? "celular" : "pc";
+
+  const imgs = backgrounds[folder];
+  if (!imgs || imgs.length === 0) return;
+
+  const randomIndex = Math.floor(Math.random() * imgs.length);
+  const selectedImg = imgs[randomIndex];
+
+  document.body.style.backgroundImage = `url("./assets/${folder}/${selectedImg}")`;
+}
 
 /* =====================
    NÚMEROS DE LA SUERTE
@@ -101,6 +127,9 @@ function resetCookie() {
 
   cookieClosed.classList.remove("hide");
   resetButton.classList.add("hide");
+
+  // Cambiar fondo de nuevo al azar al resetear
+  setRandomBackground();
 }
 
 /* =====================
@@ -108,3 +137,6 @@ function resetCookie() {
    ===================== */
 cookieClosed.addEventListener("click", openCookie);
 resetButton.addEventListener("click", resetCookie);
+
+// Opcional: cambiar fondo si se redimensiona la ventana
+window.addEventListener("resize", setRandomBackground);
