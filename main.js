@@ -20,7 +20,7 @@ let selectedBackground = ""; // fondo fijo
 const params = new URLSearchParams(window.location.search);
 const tipoFrases = params.get("frases") || "brainrot"; // default brainrot
 
-const frasesFile = `./${tipoFrases}.json`;
+const frasesFile = `./quotes/${tipoFrases}.json`;
 
 fetch(`${frasesFile}?t=${Date.now()}`)
   .then(res => {
@@ -32,6 +32,8 @@ fetch(`${frasesFile}?t=${Date.now()}`)
   })
   .catch(err => {
     console.error("Error cargando frases:", err);
+    alert("No se pudieron cargar las frases 😭")
+    
   });
 
 /* Para cambiar de frases usar: /?mode=nombre al final del link general
