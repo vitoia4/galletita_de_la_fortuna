@@ -13,14 +13,31 @@ let backgrounds = { pc: [], celular: [] };
 let selectedBackground = ""; // fondo fijo
 
 /* =====================
-   CARGAR FRASES DEL JSON
+   CARGAR FRASES (brainrot default)
    ===================== */
-fetch("./quotes.json")
-  .then(res => res.json())
+
+// Leer parámetros del link
+const params = new URLSearchParams(window.location.search);
+const tipoFrases = params.get("frases") || "brainrot"; // default brainrot
+
+const frasesFile = `./${tipoFrases}.json`;
+
+fetch(`${frasesFile}?t=${Date.now()}`)
+  .then(res => {
+    if (!res.ok) throw new Error("No se pudo cargar el archivo de frases");
+    return res.json();
+  })
   .then(data => {
     fortunes = data;
   })
-  .catch(err => console.error("Error cargando frases:", err));
+  .catch(err => {
+    console.error("Error cargando frases:", err);
+  });
+
+/* Para cambiar de frases usar: /?mode=nombre al final del link general
+ nombre = nombre del archivo .json de las frases
+ej: https://vitoia4.github.io/galletita_de_la_fortuna/?mode=generales
+*/
 
 /* =====================
    CARGAR BACKGROUNDS Y ELEGIR UNO
